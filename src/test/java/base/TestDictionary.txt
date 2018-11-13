@@ -1,0 +1,5 @@
+﻿/English/Russian 
+Noun/age/eɪdʒ/возраст | век
+Noun/able/ˈeɪb(ə)l/способный
+Noun/ability/əˈbɪlɪti/способность
+Verb/earn/əːn/зарабатывать

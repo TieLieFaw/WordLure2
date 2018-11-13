@@ -1,0 +1,68 @@
+.root *{
+   -fx-font-family: 'Tahoma';
+   -fx-text-fill: #1cfffd;
+}
+
+.background {
+    -fx-background-color: white;
+}
+
+.combo-box {
+	-fx-background-color: white;
+	-fx-font-size: 16;
+   	-fx-word-wrap: break-word;
+   	-fx-focus-color: transparent;
+   	-fx-border-color: #1cfffd; 
+   	-fx-border-radius: 15; 
+   	-fx-background-radius: 15; 
+   	-fx-text-inner-color: #1cfffd;
+   	-fx-font-size: 15;
+}
+
+.combo-box .list-view{
+	-fx-background-color: white;
+	-fx-font-size: 16;
+   	-fx-word-wrap: break-word;
+   	-fx-focus-color: transparent;
+   	-fx-border-color: #1cfffd; 
+   	-fx-border-radius: 5; 
+   	-fx-background-radius: 5; 
+   	-fx-text-inner-color: #1cfffd;
+   	-fx-font-size: 15;
+}
+
+.combo-box:hover {
+   -fx-effect: dropshadow( one-pass-box , #1cfffd , 5 , 0.0 , 0 , 0 );
+}
+
+.label {
+   -fx-font-size: 16;
+   -fx-word-wrap: break-word;
+}
+.text-field {
+   -fx-focus-color: transparent; 
+   -fx-background-color: white; 
+   -fx-border-color: #1cfffd; 
+   -fx-border-radius: 15; 
+   -fx-background-radius: 15; 
+   -fx-text-inner-color: #1cfffd;
+   -fx-font-size: 15;
+}
+
+.button {
+   -fx-border-color: #1cfffd; 
+   -fx-border-radius: 15; 
+   -fx-background-radius: 15; 
+   -fx-background-color: white; 
+   -fx-focus-color: transparent;
+   -fx-background-color: linear-gradient(to bottom, #ffffff, #ccfffd);
+   -fx-font-size: 15;
+}
+
+.button:hover {
+   -fx-effect: dropshadow( one-pass-box , #1cfffd , 5 , 0.0 , 0 , 0 );
+}
+
+.button:pressed {
+   -fx-background-color: linear-gradient(to bottom, #ffffff, #bffffc);
+}

@@ -1,0 +1,7 @@
+﻿WordLure is a simple vocabulary trainer which allows you to check spelling, choosing the right translation and definition of words through pronunciation.
+You have 4 training modes available, each of which has two types: 
+"Random" - words are provided in a random order, and "Consistent" - words are provided sequentially (it will be useful if you need to repeat all the words).
+You can choose a translation of the word from the three options, write a word by its translation, listen to the word and choose the correct option from the three proposed, and listen to the word and write it.
+To start working with the program, click the "Start" button and select the document describing the dictionary. Then select the desired learning mode and start the process. To end the program, click "Exit".
+
+Developed by: TieLieFaw (github.com/TieLieFaw)
