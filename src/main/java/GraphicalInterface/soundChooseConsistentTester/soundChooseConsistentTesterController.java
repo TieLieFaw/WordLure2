@@ -222,11 +222,11 @@ public final class soundChooseConsistentTesterController extends AbstractDefault
 
 	@Override
 	public void exit() {
-
+		super.exit();
 	}
 	
 	@FXML
-	private void playSound() {
+	public void playSound() {
 		final Task<Void> playWordSound = new Task<Void>() {
 			@Override
 			public Void call() throws Exception {

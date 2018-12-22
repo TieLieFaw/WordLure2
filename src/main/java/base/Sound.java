@@ -1,64 +1,56 @@
 package base;
 
 import java.io.File;
-import java.io.IOException;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.AudioDevice;
+import javazoom.jl.player.JavaSoundAudioDevice;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
 /**
- * The Sound class provides facilities for playing audio files in the .wav format
+ * The Sound class provides facilities for playing audio files in the .mp3 format
  * 
  * @author Kirill(github.com/TieLieFaw)
  * 
  */
-public class Sound implements AutoCloseable {
-	private boolean released = false;
-	private boolean playing = false;
-	private AudioInputStream stream = null;
-	private Clip clip = null;
+public class Sound {
+	
+	private AdvancedPlayer ap;
+	private String soundPath;
+	private volatile boolean flag = false;
 	
 	public Sound(String soundPath) {
-		try {
-			stream = AudioSystem.getAudioInputStream(new File(soundPath));
-			clip = AudioSystem.getClip();
-			clip.open(stream);
-			released = true;
-		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-			released = false;
-			close();
-		}
+		this.soundPath = soundPath;
 	}
 	
-
+	
 	public void play() {
-		if(released) {
-			if(!playing) {
-				clip.stop();
-				clip.setFramePosition(0);
-				clip.start();
-				playing = true;
-			} else {
-				clip.stop();
-				clip.setFramePosition(0);
-				playing = false;
-			}	
-		}
-		clip.start();
-	}
-	
-	@Override
-	public void close() {
-		if (clip != null)
-			clip.close();
 		
-		if (stream != null)
+		Thread playThread = new Thread(() ->  {
+			flag = true;
 			try {
-				stream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+				InputStream is = new FileInputStream(new File(soundPath).toString());
+				AudioDevice device = new JavaSoundAudioDevice();
+				ap = new AdvancedPlayer(is,device);
+				ap.play();
+			} catch (FileNotFoundException e) {
+				return;
+			} catch (JavaLayerException e) {
+				return;
+			} finally {
+				ap.close();
+				flag = false;
 			}
+		});
+		
+		if(!flag) {
+			playThread.setDaemon(true);
+			playThread.start();
+		}
+
 	}
+
 }

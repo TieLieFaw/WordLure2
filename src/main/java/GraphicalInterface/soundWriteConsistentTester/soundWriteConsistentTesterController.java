@@ -1,13 +1,4 @@
-package GraphicalInterface.backRandomTester;
-
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
+package GraphicalInterface.soundWriteConsistentTester;
 
 import java.net.URL;
 import java.util.List;
@@ -18,16 +9,26 @@ import GraphicalInterface.AbstractDefaultController;
 import Logic.AbstractLogic;
 import base.ApplicationContainer;
 import base.Word;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 /**
  * 
  * @author Kirill(github.com/TieLieFaw)
  *
  */
-public final class backRandomTesterController extends AbstractDefaultController {
-	
+public final class soundWriteConsistentTesterController extends AbstractDefaultController {
+
 	private Word word;
-	
-	public backRandomTesterController(AbstractLogic logic, List<Word> dictionary, ApplicationContainer container) {
+
+	public soundWriteConsistentTesterController(AbstractLogic logic, List<Word> dictionary, ApplicationContainer container) {
 		super(logic,dictionary, container);
 	}
 	
@@ -35,7 +36,7 @@ public final class backRandomTesterController extends AbstractDefaultController 
 	private Label resultLabel;
 	
 	@FXML
-	private Label wordLabel;
+	private Button playButton;
 	
 	@FXML
 	private TextField entryField;
@@ -46,13 +47,13 @@ public final class backRandomTesterController extends AbstractDefaultController 
 	@FXML
 	private Button exitButton;
 	
-	@FXML
 	@Override
 	public void setWord() {
 		
 		final Task<Void> setWordTask = new Task<Void>() {
 			@Override
 			public Void call() throws Exception {
+				entryField.setText("");
 				word = logic.getWord(dictionary);
 				return null;
 			}
@@ -61,8 +62,6 @@ public final class backRandomTesterController extends AbstractDefaultController 
 		setWordTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 			@Override
 			public void handle(WorkerStateEvent event) {
-				entryField.setText("");
-				wordLabel.setText(new StringBuilder().append(word.getPartOfSpeech()).append(": ").append(word.getTranslate()).toString());
 			}
 		});
 		
@@ -73,12 +72,10 @@ public final class backRandomTesterController extends AbstractDefaultController 
 		try {
 			t.join();
 		} catch (InterruptedException e) {
-			throw new RuntimeException("backRandomTesterController:#setWord()", e);
+			throw new RuntimeException("soundWriteConsistentTesterController:#setWord()", e);
 		}
-
 	}
-	
-	@FXML
+
 	@Override
 	public void verify() {
 		
@@ -124,17 +121,21 @@ public final class backRandomTesterController extends AbstractDefaultController 
 		try {
 			t.join();
 		} catch (InterruptedException e) {
-			throw new RuntimeException("backRandomTesterController:#verify()", e);
+			throw new RuntimeException("soundWriteConsistentTester:#verify()", e);
 		}
 		
 		setWord();
-			
+		
 	}
 	
 	@FXML
+	public void playSound() {
+		word.playSound();
+	}
+
 	@Override
 	public void exit() {
-		
+		super.exit();
 	}
 	
 	private void setTrueResult(String result) {
@@ -146,10 +147,10 @@ public final class backRandomTesterController extends AbstractDefaultController 
 		resultLabel.setText(result);
 		resultLabel.setTextFill(Color.web("#ff4500"));
 	}
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		nextButton.setDefaultButton(true);
+		playButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("playButtonIcon.png"))));
 	}
-	
+
 }

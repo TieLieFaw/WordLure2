@@ -64,7 +64,7 @@ public class selectionScreenController {
 		File file = fileChooser.showOpenDialog(null);
 		dictionaryFilePath = file.getAbsolutePath();
 		
-		final Task<String[]> readDictionaryFile = new Task<>() {
+		final Task<String[]> readDictionaryFile = new Task<String[]>() {
 			@Override
 			protected String[] call() throws Exception {
 				try {
@@ -164,7 +164,6 @@ public class selectionScreenController {
 			for(AbstractLogic a : dictionary.getDefaultLogic()) {
 				if(a.getName().equals(testingModeName)) choosedLogic = a;
 			}
-			
 			container.setContainerLogic(choosedLogic);
 			container.setContainerDictionary(dictionary.getDictionary());
 			
@@ -176,7 +175,7 @@ public class selectionScreenController {
 				throw new RuntimeException(e);
 			}
 			
-			FXMLLoader loader = new FXMLLoader(AbstractDefaultController.class.getResource(new StringBuilder().append("./").append(new StringBuilder().append(container.getContainerLogic().getClass().getName()).delete(0, 6).toString()).append("/").append(new StringBuilder().append(container.getContainerLogic().getClass().getName()).delete(0, 6).append(".fxml").toString()).toString()));
+			FXMLLoader loader = new FXMLLoader(AbstractDefaultController.class.getResource(new StringBuilder().append("/GraphicalInterface/").append(new StringBuilder().append(container.getContainerLogic().getClass().getName()).delete(0, 6).toString()).append("/").append(new StringBuilder().append(container.getContainerLogic().getClass().getName()).delete(0, 6).append(".fxml").toString()).toString()));
 			loader.setController(c2);
 			
 			try {

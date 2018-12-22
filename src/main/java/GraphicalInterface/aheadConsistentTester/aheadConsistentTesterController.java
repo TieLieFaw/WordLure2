@@ -234,7 +234,7 @@ public final class aheadConsistentTesterController extends AbstractDefaultContro
 	}
 	
 	@FXML
-	private void playSound() {
+	public void playSound() {
 		final Task<Void> playWordSound = new Task<Void>() {
 			@Override
 			public Void call() throws Exception {

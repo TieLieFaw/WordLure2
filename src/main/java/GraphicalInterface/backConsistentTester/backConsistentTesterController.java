@@ -1,4 +1,4 @@
-package GraphicalInterface.soundWriteRandomTester;
+package GraphicalInterface.backConsistentTester;
 
 import java.net.URL;
 import java.util.List;
@@ -16,19 +16,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 /**
  * 
  * @author Kirill(github.com/TieLieFaw)
  *
  */
-public final class soundWriteRandomTesterController extends AbstractDefaultController {
+public final class backConsistentTesterController extends AbstractDefaultController {
 
 	private Word word;
-
-	public soundWriteRandomTesterController(AbstractLogic logic, List<Word> dictionary, ApplicationContainer container) {
+	
+	public backConsistentTesterController(AbstractLogic logic, List<Word> dictionary, ApplicationContainer container) {
 		super(logic,dictionary, container);
 	}
 	
@@ -36,7 +34,7 @@ public final class soundWriteRandomTesterController extends AbstractDefaultContr
 	private Label resultLabel;
 	
 	@FXML
-	private Button playButton;
+	private Label wordLabel;
 	
 	@FXML
 	private TextField entryField;
@@ -47,13 +45,13 @@ public final class soundWriteRandomTesterController extends AbstractDefaultContr
 	@FXML
 	private Button exitButton;
 	
+	@FXML
 	@Override
 	public void setWord() {
 		
 		final Task<Void> setWordTask = new Task<Void>() {
 			@Override
 			public Void call() throws Exception {
-				entryField.setText("");
 				word = logic.getWord(dictionary);
 				return null;
 			}
@@ -62,6 +60,8 @@ public final class soundWriteRandomTesterController extends AbstractDefaultContr
 		setWordTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 			@Override
 			public void handle(WorkerStateEvent event) {
+				entryField.setText("");
+				wordLabel.setText(new StringBuilder().append(word.getPartOfSpeech()).append(": ").append(word.getTranslate()).toString());
 			}
 		});
 		
@@ -72,10 +72,12 @@ public final class soundWriteRandomTesterController extends AbstractDefaultContr
 		try {
 			t.join();
 		} catch (InterruptedException e) {
-			throw new RuntimeException("soundWriteRandomTesterController:#setWord()", e);
+			throw new RuntimeException("backConsistentTesterController:#setWord()", e);
 		}
+		
 	}
 
+	@FXML
 	@Override
 	public void verify() {
 		
@@ -121,21 +123,16 @@ public final class soundWriteRandomTesterController extends AbstractDefaultContr
 		try {
 			t.join();
 		} catch (InterruptedException e) {
-			throw new RuntimeException("soundWriteRandomTester:#verify()", e);
+			throw new RuntimeException("backConsistentTesterController:#verify()", e);
 		}
 		
 		setWord();
 		
 	}
-	
-	@FXML
-	public void playSound() {
-		word.playSound();
-	}
 
 	@Override
 	public void exit() {
-		
+		super.exit();
 	}
 	
 	private void setTrueResult(String result) {
@@ -150,7 +147,7 @@ public final class soundWriteRandomTesterController extends AbstractDefaultContr
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		playButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("playButtonIcon.png"))));
+		nextButton.setDefaultButton(true);
 	}
 
 }

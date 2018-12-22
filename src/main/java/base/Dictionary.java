@@ -35,7 +35,7 @@ import Logic.AbstractLogic;
  * <p>
  * 2) {@code languages} - Array of type String which contains two value - first and second language.<br>
  * First language is language of any word, second language is language of word's translation.<br>
- * The meanings of the languages ​​of words are taken from the first line in the .txt file.<br>
+ * The meanings of the languages ??of words are taken from the first line in the .txt file.<br>
  * <p>
  * <br>
  * <br>
@@ -108,7 +108,6 @@ public class Dictionary {
 	 */
 	public static Dictionary loadDictionary(File file) throws IOException {
 			List<String> list = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
-			
 			ArrayList<Word> wordList = new ArrayList<>();
 			
 			String s = list.stream().findFirst().get();
@@ -116,7 +115,8 @@ public class Dictionary {
 			
 			list.stream().skip(1).forEach(e -> { String[] splitWord = e.split(Pattern.quote("/"));
 			Word newWord = new Word(splitWord[0], splitWord[1], splitWord[2], splitWord[3]);
-			newWord.setSound(new StringBuilder().append(file.getParent()).append(newWord.getValue()).append(".wav").toString());
+			System.out.println(new StringBuilder().append(file.getParent()).append("/").append(newWord.getValue()).append(".mp3").toString());
+			newWord.setSound(new StringBuilder().append(file.getParent()).append("/").append(newWord.getValue()).append(".mp3").toString());
 			wordList.add(newWord);
 			});
 
@@ -128,11 +128,8 @@ public class Dictionary {
 	 */
 	public AbstractLogic[] getDefaultLogic() {
 		String[] classes;
-		try {
-			classes = WordLureSystem.getTestersClassName("Logic");
-		} catch (ClassNotFoundException | IOException e) {
-			throw new RuntimeException(e);
-		}
+		classes = WordLureSystem.getTestersClassName();
+		
 		
 		ArrayList<AbstractLogic> list = new ArrayList<>();
 		

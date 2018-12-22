@@ -37,7 +37,7 @@ public abstract class AbstractDefaultController implements Initializable, Abstra
 		Stage dialog = new Stage();
 		Parent root = null;
 		try {
-			FXMLLoader loader = new FXMLLoader(ChooseModalWindowController.class.getResource("chooseModalWindow.fxml"));
+			FXMLLoader loader = new FXMLLoader(ChooseModalWindowController.class.getResource("/GraphicalInterface/ChooseModalWindow.fxml"));
 			ChooseModalWindowController c = new ChooseModalWindowController(container);
 			loader.setController(c);
 			root = loader.load();

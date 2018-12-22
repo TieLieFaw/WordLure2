@@ -2,8 +2,6 @@ package base.GraphicalInterface.initialScreen;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import base.ApplicationContainer;
@@ -47,11 +45,7 @@ public final class initialScreenController implements Initializable{
 		final Task<Void> readWelcomeMessage = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
-				try {
-					welcomeMessage = new String(Files.readAllBytes(Paths.get("src/main/java/base/GraphicalInterface/initialScreen/WelcomeMessage.txt")));
-				} catch (IOException e) {
-					throw new RuntimeException("initialScreenController:#initialize()", e);
-				}
+					welcomeMessage = new String("	WordLure is a simple vocabulary trainer which allows you to check spelling, choosing the right translation and definition of words through pronunciation. You have 4 training modes available, each of which has two types:\n	\"Random\" - words are provided in a random order, and \"Consistent\" - words are provided sequentially (it will be useful if you need to repeat all the words). \n	You can choose a translation of the word from the three options, write a word by its translation, listen to the word and choose the correct option from the three proposed, and listen to the word and write it.\n	To start working with the program, click the \"Start\" button and select the document describing the dictionary. Then select the desired learning mode and start the process. To end the program, click \"Exit\".\n\n\n		Developed by: TieLieFaw (github.com/TieLieFaw)");
 				return null;
 			}
 		};
